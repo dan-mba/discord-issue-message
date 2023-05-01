@@ -22,7 +22,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^1.10.0",
+    "@discordjs/core": "^0.6.0",
+    "@discordjs/rest": "^1.7.1",
+    "discord-api-types": "^0.37.41"
   },
   "devDependencies": {
     "@types/node": "^18.16.3",
