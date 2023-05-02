@@ -1,16 +1,20 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import { REST } from '@discordjs/rest';
+import { Routes } from 'discord-api-types/v10';
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const TOKEN: string = core.getInput('discord_token')
+    const rest = new REST({ version: '10' }).setToken(TOKEN);
+    
+    const CHANNEL_ID: string = core.getInput('discord_channel')
+    const MESSAGE: string = core.getInput('message')
+    await rest.post(Routes.channelMessages(CHANNEL_ID), {
+      body: {
+        content: MESSAGE,
+      },
+    });
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }

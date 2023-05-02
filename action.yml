@@ -2,10 +2,16 @@ name: 'Your name here'
 description: 'Provide a description here'
 author: 'Your name or organization here'
 inputs:
-  milliseconds: # change this
+  discord_token:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Discord server token'
+  discord_channel:
+    required: true
+    description: 'Discord channel id'
+  message:
+    required: true
+    description: 'message text'
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
