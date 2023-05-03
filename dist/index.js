@@ -30,7 +30,7 @@ function run() {
             if (process.env.GITHUB_EVENT_PATH) {
                 const data = yield (0, promises_1.readFile)(process.env.GITHUB_EVENT_PATH, 'utf8');
                 const issue = JSON.parse(data)['issue'];
-                message = `Issue: ${issue.title}\nCreated By:${issue.user.login}\n[${issue.number}](${issue.url})`;
+                message = `Issue: ${issue.title}\nCreated By: ${issue.user.login}\n${issue.url}`;
             }
             else {
                 message = (0, core_1.getInput)('message');
