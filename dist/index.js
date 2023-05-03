@@ -16,6 +16,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const promises_1 = __nccwpck_require__(3292);
 const core_1 = __nccwpck_require__(2186);
 const rest_1 = __nccwpck_require__(3940);
 const v10_1 = __nccwpck_require__(27);
@@ -25,10 +26,22 @@ function run() {
             const TOKEN = (0, core_1.getInput)('discord_token');
             const rest = new rest_1.REST({ version: '10' }).setToken(TOKEN);
             const CHANNEL_ID = (0, core_1.getInput)('discord_channel');
-            const MESSAGE = (0, core_1.getInput)('message');
+            let message = "";
+            if (process.env.GITHUB_EVENT_PATH) {
+                const data = yield (0, promises_1.readFile)(process.env.GITHUB_EVENT_PATH, 'utf8');
+                const issue = JSON.parse(data);
+                message = `Issue: ${issue.title}\nCreated By:${issue.user.login}\n[${issue.number}](${issue.url})`;
+            }
+            else {
+                message = (0, core_1.getInput)('message');
+            }
+            if (!message) {
+                (0, core_1.setFailed)('No issue or message');
+                return;
+            }
             yield rest.post(v10_1.Routes.channelMessages(CHANNEL_ID), {
                 body: {
-                    content: MESSAGE,
+                    content: message,
                 },
             });
         }
@@ -31139,6 +31152,14 @@ module.exports = require("events");
 
 "use strict";
 module.exports = require("fs");
+
+/***/ }),
+
+/***/ 3292:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("fs/promises");
 
 /***/ }),
 

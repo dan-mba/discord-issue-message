@@ -1,6 +1,6 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'discord-issue-message'
+description: 'Create Discord message on issue creation'
+author: 'dan-mba'
 inputs:
   discord_token:
     required: true
@@ -9,8 +9,8 @@ inputs:
     required: true
     description: 'Discord channel id'
   message:
-    required: true
-    description: 'message text'
+    required: false
+    description: 'message text (only use if not an issue)'
 
 runs:
   using: 'node16'
