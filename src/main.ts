@@ -12,8 +12,7 @@ async function run(): Promise<void> {
     let message: string = "";
     if (process.env.GITHUB_EVENT_PATH) {
       const data = await readFile(process.env.GITHUB_EVENT_PATH, 'utf8')
-      const issue = JSON.parse(data);
-      console.log(issue)
+      const issue = JSON.parse(data)['issue'];
       message = `Issue: ${issue.title}\nCreated By:${issue.user.login}\n[${issue.number}](${issue.url})`;
     } else {
       message = getInput('message');
