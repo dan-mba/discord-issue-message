@@ -6,29 +6,6 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 
 "use strict";
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,16 +16,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core = __importStar(__nccwpck_require__(2186));
+const core_1 = __nccwpck_require__(2186);
 const rest_1 = __nccwpck_require__(3940);
 const v10_1 = __nccwpck_require__(27);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const TOKEN = core.getInput('discord_token');
+            const TOKEN = (0, core_1.getInput)('discord_token');
             const rest = new rest_1.REST({ version: '10' }).setToken(TOKEN);
-            const CHANNEL_ID = core.getInput('discord_channel');
-            const MESSAGE = core.getInput('message');
+            const CHANNEL_ID = (0, core_1.getInput)('discord_channel');
+            const MESSAGE = (0, core_1.getInput)('message');
             yield rest.post(v10_1.Routes.channelMessages(CHANNEL_ID), {
                 body: {
                     content: MESSAGE,
@@ -57,7 +34,7 @@ function run() {
         }
         catch (error) {
             if (error instanceof Error)
-                core.setFailed(error.message);
+                (0, core_1.setFailed)(error.message);
         }
     });
 }
