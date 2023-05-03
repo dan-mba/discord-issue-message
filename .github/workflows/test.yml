@@ -1,8 +1,8 @@
 name: 'test'
 on: # rebuild any PRs and main branch changes
-  workflow_dispatch
   issues:
     types: [opened]
+  workflow_dispatch
 
 jobs:
   test: # make sure the action works on a clean machine without building
