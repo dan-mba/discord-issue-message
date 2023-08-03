@@ -1340,6 +1340,8 @@ const extensions = [
 	'arj',
 	'cpio',
 	'ace',
+	'avro',
+	'icc',
 ];
 
 const supported_mimeTypes = [
@@ -1486,6 +1488,8 @@ const supported_mimeTypes = [
 	'application/x-arj',
 	'application/x-cpio',
 	'application/x-ace-compressed',
+	'application/avro',
+	'application/vnd.iccprofile',
 ];
 
 ;// CONCATENATED MODULE: ./node_modules/file-type/core.js
@@ -1733,6 +1737,13 @@ class FileTypeParser {
 			return {
 				ext: 'jpg',
 				mime: 'image/jpeg',
+			};
+		}
+
+		if (this.check([0x4F, 0x62, 0x6A, 0x01])) {
+			return {
+				ext: 'avro',
+				mime: 'application/avro',
 			};
 		}
 
@@ -2790,6 +2801,13 @@ class FileTypeParser {
 
 		// Increase sample size from 12 to 256.
 		await tokenizer.peekBuffer(this.buffer, {length: Math.min(256, tokenizer.fileInfo.size), mayBeLess: true});
+
+		if (this.check([0x61, 0x63, 0x73, 0x70], {offset: 36})) {
+			return {
+				ext: 'icc',
+				mime: 'application/vnd.iccprofile',
+			};
+		}
 
 		// -- 15-byte signatures --
 
